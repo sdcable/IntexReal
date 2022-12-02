@@ -181,7 +181,7 @@ def viewFood(request):
     context= {
         'food': food
     }
-    return render(request, 'viewFood.html', context)
+    return render(request, 'viewfood.html', context)
 
 
 
@@ -246,7 +246,7 @@ def addFoods(request):
         context= {
             'food': food
         }
-        return render(request, 'viewFood.html', context)
+        return render(request, 'viewfood.html', context)
     else:
         return render(request, 'addFoods.html')
 
