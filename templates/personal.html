@@ -1,0 +1,104 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}Personal{% endblock %}
+{% block content %}
+<!-- Template that displays a client's personal information, and provides access to many other templates -->
+
+<head>
+     <!-- CSS property to place div side by side -->
+    <style> 
+        #leftbox {
+            float:left; 
+            width:50%;
+            height:280px;
+            margin-left: 90px;
+        }
+        #middlebox{
+            float:left; 
+            background:transparent;
+            width:5%;
+            height:280px;
+        }
+        #rightbox{
+            float:right;
+            width:40%;
+            height:500px;
+            margin-right:auto;
+        }
+        h1{
+            text-align:center;
+        }
+        #buttonmargin{
+            margin-left:50px;
+        }
+    </style> 
+</head>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 ">
+                <div class="site-heading">
+                    <h1>Your Summary </h1><br>
+                    <span class="subheading">
+                        {% if user.is_authenticated %}
+                            Welcome {{ user.username | title }}!<br><br>
+                            View or Update Personal Information Below
+                        {% endif %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5" >
+    <div class="row gx-4 gx-lg-5 " id="leftbox">
+        <div class="col-md-10 c">
+           <!-- Post preview-->
+            <div class="post-preview">
+              <h2>Personal Information</h2><br>
+                    
+                {% for username in client%}
+                    {% if user.username == username.username%}
+                        <label> First Name: {{ username.first_name |title  }}</label><br>
+                        <label> Last Name: {{ username.last_name | title }}</label> <br>
+                        <label> Email: {{ username.email }}</label> <br>
+                        <label> Birth Date: {{ username.dateOfBirth }}</label> <br>
+                        <label> Gender: {{ username.gender | capfirst}}</label> <br>
+                        <label> Race: {{ username.race | capfirst }}</label> <br>
+                        <label> Weight: {{ username.weight }}</label> <br>
+                        <label> Condition: {{ username.condition_name | capfirst}}</label> <br><br>
+                    {% endif %}
+                {% endfor %}
+                    
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+              <h2 class="post-title">Track Serum Levels</h2><br>
+              <div class="d-flex mb-4"><a class="btn btn-outline-dark" href="{% url 'serumViz' username=user.username %}">View and Add Serum Levels Here→</a></div>
+              <br>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Pager-->
+            <div class="post-preview">
+            <h2 class="post-title">View Daily Journals</h2><br>
+            <div class="d-flex mb-4"><a class="btn btn-outline-dark" href="{% url 'showDiaries' username=user.username %}">View Your Daily Journals→</a></div>
+        </div>
+    </div>
+</div>
+<div class="container px-4 px-lg-5" id="rightbox">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class=" post-preview">
+            <a><h6>New users:<br> Please add personal information</h6><a>
+            <div class="d-flex justify-content-left mb-4"><a class="btn btn-outline-dark" href="{% url 'addClient' %}">Add Personal Info→</a></div>
+            <div class="d-flex justify-content-left mb-4"><a class="btn btn-outline-dark" href="{% url 'updateClient' clientusername=user.username %}">Update Personal Info→</a></div>
+        </div>
+    </div>
+</div>
+                
+                    
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock%}

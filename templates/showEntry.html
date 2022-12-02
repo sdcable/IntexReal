@@ -1,0 +1,43 @@
+{%extends 'client_base.html'%}
+{%load static %}
+{% block title%}Diary{% endblock %}
+{% block content %}
+<!--This template shows what the client has entered for that day of the journal-->
+
+<div class='container'>
+    <div class='text-left'>
+        <br><br>
+        <a id="buttonmargin" class="btn btn-outline-dark" href="{% url 'showDiaries' username=user.username%}" type="submit"><class="previous">&laquo;Back to My Journals</a>
+        <br><br><h2 class='section_heading text-uppercase'>Daily Journal Entries</h2>
+    </div>
+    <br>
+    
+    <h3>{{myDiary.date}}</h3><br>
+
+    <div>
+        <!--buttons-->
+        <a class="btn btn-outline-dark" href="{%url 'addEntry' diary_id=myDiary.dd_id%}">Add Entry To This Journal</a>
+        <a class="btn btn-outline-dark" href="{%url 'nutViz' diary_id=myDiary.dd_id username=myDiary.username%}">See Daily Nutrient Summary</a>
+        <a class="btn btn-outline-dark" href="{%url 'viewFood' %}">See All Food in Our Database</a>
+        
+    </div><br><br>
+    <!--dynamically displaying food-->
+    {% for record in record%}
+    <a href="{%url 'editEntry' journal_id=record.journal_entry_id %} "></a>
+        <div>
+            <div style="border: 2px solid black">
+                <p>
+                &nbsp Meal Category: {{record.meal_type | title}}<br>
+                &nbsp Food: {{record.food_name | title}}<br>
+                &nbsp Serving Size: {{record.consumed_serving_size}}
+                </p>
+            </div>
+        </div>
+    <div style="border: 1px solid black">
+        <a href="{%url 'deleteEntry' journal_id=record.journal_entry_id %}"> Click Here to DELETE the above entry entry. This is PERMANENT</a>
+    </div>
+    {% endfor %}
+    
+</div>
+
+{%endblock%}

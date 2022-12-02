@@ -1,0 +1,90 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}Add Food{% endblock %}
+{% block content %}
+<!--Where they can personally add a new food item with different values of nutrients-->
+<br><br><br>
+<style>
+#buttonmargin{
+    margin-left:50px;
+}
+</style> 
+<div>
+    <a id="buttonmargin" class="btn btn-outline-dark" href="{% url 'clientindex' %}" type="submit"><class="previous">&laquo;Back to Home</a>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <br><br><h2>Add A New Food</h2>
+            <form name='form' action="{% url 'addFoods' %}" method="POST">
+                {% csrf_token %}
+                <div class="post-preview">
+                    <br><br><h3 class="post-subtitle">Food Name:</h3><br>
+                    <label for="username"></label>
+                    <input type='text' name="food_name" id="food_name">
+                    <br><br>
+                </div>
+                <div class="post-preview">
+                    <br><h3 class="post-subtitle">Serving Unit:</h3> <br>
+                    <label for="serving_unit"></label>
+                    <select name="serving_unit" id="serving_unit">
+                        <option value="grams" selected>grams</option>
+                        <option value="cup">cup</option>
+                        <option value="tablespoon">tablespoon</option>
+                        <option value="teaspoon">teaspoon</option>
+                        <option value="slice">slice</option>
+                        <option value="ounce">ounce</option>
+                        <option value="liters">liters</option>
+                        <option value="milliliters">milliliters</option>
+                        <option value="whole">whole</option>
+                        </select>
+                    <br><br>
+                <p class="post-meta"></p>
+                </div>
+                <div class="post-preview">
+                        <br><h3 class="post-subtitle">Sodium Amount:</h3> <br>
+                        <label for="date"></label>
+                        <input type="number" name="sodium" id="sodium" value="0.0">
+                        <br><br>
+                    <p class="post-meta"></p>
+                </div>
+                <div class="post-preview">
+                    <br><h3 class="post-subtitle">Protein Amount:</h3> <br>
+                    <label for="protein"></label>
+                    <input type="number" name="protein" id="protein" value="0.0">
+                    <br><br>
+                <p class="post-meta"></p>
+                </div>
+                <div class="post-preview">
+                    <br><h3 class="post-subtitle">Potassium Amount:</h3> <br>
+                    <label for="potassium"></label>
+                    <input type="number" name="potassium" id="potassium" value="0.0">
+                    <br><br>
+                <p class="post-meta"></p>
+                </div>
+                    <div class="post-preview">
+                        <br><h3 class="post-subtitle">Water Amount:</h3> <br>
+                        <label for="water"></label>
+                        <input type="number" name="water" id="water" value="0.0">
+                        <br><br>
+                    <p class="post-meta"></p>
+                </div>
+                <div class="post-preview">
+                    <br><h3 class="post-subtitle">Phosphorus Amount:</h3> <br>
+                    <label for="phosphorus"></label>
+                    <input type="number" name="phosphorus" id="phosphorus" value="0.0">
+                    <br><br>
+                <p class="post-meta"></p>
+                </div>
+                
+                <div class="post-preview">
+                    <br><h3 class="post-subtitle">Serving Size Amount of Food:</h3> <br>
+                    <label for="serving_size_amount"></label>
+                    <input type="number" name="serving_size_amount" id="serving_size_amount" value="0.0">
+                    <br><br>
+                <p class="post-meta"></p>
+                </div>
+                <div class="d-flex justify-content-end mb-4"><button class="btn btn-outline-dark" type='submit'>Add food to database</button></div>
+            </form>
+            <!-- Divider-->
+            <br><br><br><br>
+
+{% endblock%}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Home{% endblock %}
+{% block content %}
+<!-- Home page for the user (a website viewer who has not created an account)-->
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1543353071-873f17a7a088?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Welcome To MyTracker</h1><br>
+                    <span class="subheading">Track Your Nutrition Needs</span>
+                    <br><br>
+                    <a class="btn btn-outline-dark" href="{% url 'signup' %}" type="submit">Create an Account</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <!-- Post preview-->
+            <div class="post-preview">
+                    <h3 class="post-subtitle">How to Change Dietary Habits for Good </h3>
+                    <a><h4 class="post-subtitle">Psychologists offer their best advice for how to change unhealthy dietary habits for good</h4></a>
+                <p class="post-meta">
+                    Read article 
+                    <a href="https://chear.ucsd.edu/blog/10-ways-to-make-lifestyle-changes-easy">here.</a>
+                    Posted by UCSD on April 13, 2021
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">How can I make Actual Lifestyle Changes?</h3>
+                <a><h4 class="post-subtitle">Watch the following video to learn about the "power promise," how to keep yourself accountable, and other helpful tips for making lifestyle changes.  </h4></a>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/p-v00u0ActM" 
+                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+                </iframe>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">A DaVita Dietitian's Top 15 Healthy Foods for People with Kidney Disease</h3>
+                <a><h4 class="post-subtitle">Read the following article to learn more about antioxidant packed anti-inflammatory foods, as well as recipes and more. </h4></a>
+            <p class="post-meta">
+                Read article 
+                <a href="https://www.davita.com/diet-nutrition/articles/advice/top-15-healthy-foods-for-people-with-kidney-disease">here.</a>
+            </p>
+        </div> 
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">One of the Best Ways to Excersie When you Have CKD</h3>
+                <a><h4 class="post-subtitle">Take a look at "Walking: An Ideal Exercise for People with Kidney Disease" to learn more about the benefits of walking just 30 minutes, at least three times per week.</h4></a>
+            <p class="post-meta">
+                <a href="http://www.davita.com/education/ckd-life/lifestyle-changes/walking-an-ideal-exercise-for-people-with-kidney-disease">Walking: An Ideal Exercise for People with Kidney Disease</a>
+            </p>
+                        <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">A DaVita Dietitian's Top 15 Healthy Foods for People with Kidney Disease</h3>
+                <a><h4 class="post-subtitle">Read the following article to learn more about antioxidant packed anti-inflammatory foods, as well as recipes and more. </h4></a>
+            <p class="post-meta">
+                Read article 
+                <a href="https://www.davita.com/diet-nutrition/articles/advice/top-15-healthy-foods-for-people-with-kidney-disease">here.</a>
+            </p>
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">Take Control of your Health Today</h3>
+                <a><h4 class="post-subtitle">From a daily food journal to long term serum level monitoring, you will be able to closely track your kidney health.</h4></a>
+            <p class="post-meta"> 
+                Click
+                <a href="{% url 'signup' %}">here</a> 
+                to create your Tracker account
+            </p>
+        </div>         
+        </div> 
+    </div>
+</div>
+{% endblock%}
+
+<!--are you my uncle's kidney? bc you're a failure-->

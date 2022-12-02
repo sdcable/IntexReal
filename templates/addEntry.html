@@ -1,0 +1,62 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}Add Entry{% endblock %}
+{% block content %}
+<!--Add New food entries into a specific daily journal. Input the type of meal, serving size, etc.-->
+<br><br><br>
+<div>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="post-preview">
+            </div>
+            <!-- Post preview-->
+            <div class='text-left'>
+                <a id="buttonmargin" class="btn btn-outline-dark" href="{% url 'showEntry' diary_id=myDiary.dd_id%}" type="submit"><class="previous">&laquo;Back to My Journal</a>
+            </div>
+            <form name='form' action="{% url 'addFoodTest' %}" method="post">
+                {% csrf_token %}
+                <div class="post-preview">
+                        <br>
+                        <a><h3 class="post-subtitle">Meal Category:</h3> <a><br>
+                        <label for="meal_type"></label>
+                        <select name="meal_type" id="meal_type">
+                            <option value="none">--</option>
+                        	<option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                        	<option value="dinner">Dinner</option>
+                        	<option value="snack">Snack</option>
+                        	</select>
+                    <p class="post-meta">
+                    </p>
+                </div>
+                <div class="post-preview">
+                        <br><div class="post-preview">
+                            <a><br><h3 class="post-subtitle">Food name:</h3> <a><br>
+                            <label for="food_name"></label>
+                                <input type="text" name="food_name" id="food_name">
+                                <br><br>
+                        <p class="post-meta"></p>
+                </div>
+                <div class="post-preview">
+                        <br>
+                        <a><h3 class="post-subtitle">How Much of a serving did you eat? 
+                            <br>(ex: 1 serving size, 1.5 serving sizes, etc.)</h3><a> <br>
+                        <label for="consumed_serving_size"></label>
+                            <input type="text" name="consumed_serving_size" id="consumed_serving_size">
+                            <br><br>
+                    <p class="post-meta">
+                    </p>
+                </div>
+                <div class="post-preview">
+                        <input type="text" name="dd_id" id="dd_id" value='{{myDiary.dd_id}}' hidden>
+                        <br>
+                <p class="post-meta">
+                </p>
+                </div>
+                <button class="btn btn-outline-dark" type="submit">Click to Add Food</button>
+            </div>
+
+            </form>
+            <br><br><br><br><br>
+
+{% endblock%}

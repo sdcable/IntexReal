@@ -1,0 +1,106 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}Add Client{% endblock %}
+{% block content %}
+<!-- Template that displays form for users to add personal information after creation of accout -->
+
+<!-- Page Header-->
+	<header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
+    	<div class="container position-relative px-4 px-lg-5">
+        	<div class="row gx-4 gx-lg-5 justify-content-center">
+            	<div class="col-md-10 col-lg-8 col-xl-7">
+                	<div class="site-heading">
+                    	<h1>New Account</h1><br>
+                    	<span class="subheading">
+                        	{% if user.is_authenticated %}
+                	        Welcome {{ user.username }}! <br><br> Please Add Your Personal Information Below
+                        	{% endif %}</span>
+                	</div>
+            	</div>
+        	</div>
+    	</div>
+	</header>
+	<!-- Main Content-->
+	<div class="container px-4 px-lg-5">
+    	<div class="row gx-4 gx-lg-5 justify-content-center">
+        	<div class="col-md-10 col-lg-8 col-xl-7">
+            	<form name='form' method='post' action="{% url 'addClient' %}">
+                	{% csrf_token %}
+            	<!-- Post preview-->
+            	<div class="post-preview">
+                    	<h2>Personal Information</h2><br>
+                       
+                        	<label for="username">Username:</label>
+                        	<input type="text" value={{user.username}} name="username" id="username" readonly>
+                        	<br><br>
+ 
+                   
+                        	<label for="first_name">First name:</label>
+                        	<input type="text" name="first_name" id="first_name" autofocus>
+                        	<br><br>
+                           
+                        	<label for="last_name">Last name:</label>
+                        	<input type="text" name="last_name" id="last_name" autofocus>
+                        	<br><br>
+ 
+                        	<label for="email">Email:</label>
+                        	<input type="text" name="email" id="email" autofocus>
+                        	<br><br>
+                   
+                        	<label for="dateOfBirth">Date of Birth:</label>
+                        	<input type="date" name="dateOfBirth" id="dateOfBirth" autofocus>
+                        	<br><br>
+ 
+                        	<label for="gender">Gender:</label>
+                        	<select name="gender" id="gender">
+                        	<option value="none">--</option>
+                            <option value="female">Female</option>
+                        	<option value="male">Male</option>
+                        	<option value="other">Other</option>
+                        	</select>
+                      	  <br><br>
+ 
+                        	<label for="race">Race:</label>
+                        	<select name="race" id="race">
+                        	<option value="none">--</option>
+                        	<option value="white">White</option>
+                        	<option value="hispanic">Hispanic</option>
+                        	<option value="black">Black</option>
+                        	<option value="asian">Asian</option>
+                        	<option value="multiple races">Multiple Races</option>
+                        	<option value="american indian/alaskan native">American Indian/Alaskan Native</option>
+                        	<option value="native hawaiian/pacific islander">Native Hawaiian/Pacific Islander</option>
+                        	</select>
+                        	<br><br>
+                	</br>
+            	</div>
+            	<!-- Divider-->
+            	<hr class="my-4" />
+            	<!-- Post preview-->
+    	        <div class="post-preview">
+                    	<h2 class="post-title">Current Stats</h2><br>
+ 
+                    	<label for="weight">Weight:</label>
+                    	<input type="text" name="weight" id="weight" autofocus>
+    	                <br><br>
+                    	<label for="condition_name">Additional Condition:</label>
+                    	<select type ="text" name="condition_name" id="condition_name">
+                    	<option value="none">--</option>
+                    	<option value="cardiovascular disease">Cardiovascular Disease</option>
+                    	<option value="diabetes">Diabetes</option>
+                    	<option value="hyperlipidemia">Hyperlipidemia</option>
+                    	<option value="hypertension">Hypertension</option>
+                    	<option value="none">None</option>
+                    	</select>
+                    	<br><br>
+            	</div>
+            	<!-- Divider-->
+            	<hr class="my-4" />
+            	<!-- Pager-->
+            	<div class="d-flex justify-content-end mb-4"><button type='submit'>Create</button></div>
+        	</form>
+			</div>
+    	</div>
+	</div>
+{% endblock%}
+

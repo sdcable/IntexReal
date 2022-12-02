@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Sign Up{% endblock %}
+{% block content %}
+<!-- Sign up template for users to create account -->
+
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+          <form name='form' method='post'>
+            <br>
+            <br><br>
+            <a class="btn btn-outline-dark" href="{% url 'index' %}" type="submit"><class="previous">&laquo;Back to Home</a>
+            <br>
+            <br>
+            <h2>Sign up</h2>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-outline-dark" type="submit">Sign Up</button> <br> <br>
+          </form>
+        </div>
+    </div>
+  </div>
+
+{% endblock%}

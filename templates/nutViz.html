@@ -1,0 +1,183 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}Nutrient Summary{% endblock %}
+{% block content %}
+<br><br><br>
+<!--   This is the html page for dynamic visualization of nutrient levels for each daily journal -->
+
+<head>
+    <!-- CSS Styles used in this template -->
+    <style> 
+        #leftbox {
+            float:left; 
+            width:10%;
+            height:280px;
+        }
+        #middlebox{
+            float:left; 
+            background:transparent;
+            width:3%;
+            height:280px;
+        }
+        #rightbox{
+            float:right;
+            height: 100px;
+            width:10%;
+        }
+        #titleboxwoohoo{
+            text-align:right;
+        }
+        h4{
+            text-align:center;
+        }
+        h3{
+            margin-right: 270px;
+        }
+        p{
+            text-align:center;
+        }
+        #buttonmargin{
+        margin-left:50px;
+        }
+    </style>
+</head>
+<div class='text-left'>
+    <a id="buttonmargin" class="btn btn-outline-dark" href="{% url 'showEntry' diary_id=thisDiary.dd_id%}" type="submit"><class="previous">&laquo;Back to My Journal</a>
+</div>
+<div id="leftbox">
+
+</div>
+<div id="rightbox">
+
+</div>
+
+<div"" id="titleboxwoohoo">
+    <h3>Daily Nutrition Summary for {{ myClient.first_name }} {{myClient.last_name}}</h3>
+</div>
+<div class = "row mt-3 pt-3">
+    <div class = "col-md-4" >
+        <div class = "border p-3 shadow">
+            <h4>DV/RDA Daily Values for Stage 3/4</h4>
+            <p>Values are from the National Kidney Foundation of Utah & Idaho. User will be alerted if micronutrient levels exceeds recommended daily limit.</p>
+        </div>
+    </div>
+    <div class = "col-md-8">
+        <canvas id="myChart" width="200" height="200"></canvas>
+        <script>
+        // these goal values come from National Kidney Foundation of Utah & Idaho recommended DV/RDA values for stage 3/4
+        //water
+        var wLevel = {{waterNutrient}}
+        {% if myClient.gender == 'male' %} var wGoal = 3700 {% else %} var wGoal = 2700 {% endif %} // set the water recommended value based on client gender
+        //protein
+        var proLevel = {{proteinNutrient}}
+        var proGoal = .6*{{myClient.weight}}*0.4536 // protein value depends on client weight
+        //sodium
+        var sLevel = {{sodiumNutrient}} // measurements are converted to grams for uniformity
+        var sGoal = 2.3
+        //phosphorous
+        var phosLevel = {{phosphorusNutrient}}
+        var phosGoal = 1.0
+        //potassium
+        var potLevel = {{potassiumNutrient}}
+        var potGoal = 3.0
+
+
+        const ctx = document.getElementById('myChart').getContext('2d'); //create chart
+        const myChart = new Chart(ctx, {
+            type: 'pie',
+            data:  {
+                labels: ['Water', 'Daily Water Remaining', 'Protein', 'Daily Protein Remaining', 'Sodium', 'Daily Sodium Remaining', 'Phosphorous', 'Daily Phosphorous Remaining', 'Potassium', 'Daily Potassium Remaining'],
+                datasets: [
+                    {
+                    backgroundColor: ['#00ffff', '#005b96'], // Water
+                    data: [wLevel, {% if wLimit < 0 %} 0 {% else %} wGoal - wLevel {% endif %}] // allows nutrient level to appear as full in multi series pie graph
+                    },                                                                          // if nutrient level not yet exceeded, graph will show remainder
+                    {
+                    backgroundColor: ['#FF4A03', '#B43503'], // Protein
+                    data: [proLevel, {% if proLimit < 0 %} 0 {% else %} proGoal - proLevel {% endif %}]
+                    },
+                    {
+                    backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'], // Sodium
+                    data: [sLevel, {% if sLimit < 0 %} 0 {% else %} sGoal - sLevel {% endif %}]
+                    },
+                    {
+                    backgroundColor: ['#FF1CFF', '#C219C1'], // Phosphorous
+                    data: [phosLevel, {% if phosLimit < 0 %} 0 {% else %} phosGoal - phosLevel {% endif %}]
+                    },
+                    {
+                    backgroundColor: ['#FFDA24', '#CEB01F'], // Potassium
+                    data: [potLevel, {% if potLimit < 0 %} 0 {% else %} potGoal - potLevel {% endif %}]
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                legend: {
+                    labels: {
+                    generateLabels: function(chart) {
+                        // Get the default label list
+                        const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;
+                        const labelsOriginal = original.call(this, chart);
+
+                        // Build an array of colors used in the datasets of the chart
+                        let datasetColors = chart.data.datasets.map(function(e) {
+                        return e.backgroundColor;
+                        });
+                        datasetColors = datasetColors.flat();
+
+                        // Modify the color and hide state of each label
+                        labelsOriginal.forEach(label => {
+                        // There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index
+                        label.datasetIndex = (label.index - label.index % 2) / 2;
+
+                        // The hidden state must match the dataset's hidden state
+                        label.hidden = !chart.isDatasetVisible(label.datasetIndex);
+
+                        // Change the color to match the dataset
+                        label.fillStyle = datasetColors[label.index];
+                        });
+
+                        return labelsOriginal;
+                    }
+                    },
+                    onClick: function(mouseEvent, legendItem, legend) {
+                    // toggle the visibility of the dataset from what it currently is
+                    legend.chart.getDatasetMeta(
+                        legendItem.datasetIndex
+                    ).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);
+                    legend.chart.update();
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                    label: function(context) {
+                        const labelIndex = (context.datasetIndex * 2) + context.dataIndex;
+                        return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;
+                    }
+                    }
+                }
+                }
+            },
+        });
+        </script>
+    </div>
+</div>
+<!--  These are the ALERTS that appear when a nutrient level has exceeded its recommended limit -->
+{% if wLimit < 0 %}
+<script>alert("You have exceeded your water limit for this day.")</script>
+{% endif %}
+{% if proLimit < 0 %}
+<script>alert("You have exceeded your protein limit for this day.")</script>
+{% endif %}
+{% if sLimit < 0 %}
+<script>alert("You have exceeded your sodium limit for this day.")</script>
+{% endif %}
+{% if phosLimit < 0 %}
+<script>alert("You have exceeded your phosphorus limit for this day.")</script>
+{% endif %}
+{% if potLimit < 0 %}
+<script>alert("You have exceeded your potassium limit for this day.")</script>
+{% endif %}
+
+{% endblock %}

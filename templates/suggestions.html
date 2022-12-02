@@ -1,0 +1,130 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}Suggestions{% endblock %}
+{% block content %}
+<!-- This template provides clients with additional nutrition info for the comorbidities-->
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1559757175-0828e13882ed%3Fcrop%3Dfaces%252Cedges%26cs%3Dtinysrgb%26fit%3Dcrop%26fm%3Djpg%26ixid%3DMnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjY5ODY2NDEz%26ixlib%3Drb-4.0.3%26q%3D60%26w%3D1200%26auto%3Dformat%26h%3D630%26mark-w%3D64%26mark-align%3Dtop%252Cleft%26mark-pad%3D50%26blend-mode%3Dnormal%26blend-alpha%3D10%26blend-w%3D1%26mark%3Dhttps%253A%252F%252Fimages.unsplash.com%252Fopengraph%252Flogo.png%26blend%3D000000')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 ">
+                <div class="site-heading">
+                    <h1>Suggestions</h1> <br>
+                    <span class="subheading"> View Resources Below for Tips, Recipes, and More</h1></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10  ">
+            <!-- Post preview-->
+            <!-- one day these will be dynamic but for today, they are just general suggestions-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">Heart Healthy Diets</h3>
+                <a><h4 class="post-subtitle">"Diet plays an important part in cardiovascular health, impacting everything from blood pressure to your potential of developing heart disease. And while certain patterns of eating are solid picks for fitting into a smaller pair of jeans or gaining muscle mass, other diets are better suited for giving your heart health a boost."</h4></a>
+            <p class="post-meta">
+                Read the rest of the article 
+                <a href="https://www.forbes.com/health/body/best-diets-for-heart-health/">here.</a>
+            </p>
+            </div> 
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">"Beating High Blood Pressure With Food"</h3>
+                <a><h4 class="post-subtitle">Read this article from the Harvard Medical School to learn how to control blood pressure through diet choices.</h4></a>
+            <p class="post-meta">
+                Read article
+                <a href="https://www.health.harvard.edu/newsletter_article/beating-high-blood-pressure-with-food">here.</a>
+            </p>
+                        <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">A DaVita Dietitian's Top 15 Healthy Foods for People with Kidney Disease</h3>
+                <a><h4 class="post-subtitle">Read the following article to learn more about antioxidant packed anti-inflammatory foods, as well as recipes and more. </h4></a>
+            <p class="post-meta">
+                Read article 
+                <a href="https://www.davita.com/diet-nutrition/articles/advice/top-15-healthy-foods-for-people-with-kidney-disease">here.</a>
+            </p>
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h3 class="post-subtitle">Micronutrients and Chronic Kidney Disease </h3>
+                <a><h5 class="post-subtitle">The symptoms and severity of Chronic Kidney Disease can be managed through lifestyle changes. 
+                                            One of the biggest changes patients with CKD can make is to their diet. A CKD patient's diet must be tailored to limit the consumption of 
+                                            certain macro and micronutrients, including: protien, phosphorus, potassium, sodium, and water. Additional conditions (like Type II Diabetes) 
+                                            can provide additional dietary complications, be sure to consult your physician before making extreme dietary changes.</h5></a>
+                    <br>
+                <style>
+                    table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    }
+                </style>
+                <table>
+                    <tr>
+                      <th>Additional Condition</th>
+                      <th>Recommended Diet</th>
+                      <th>CKD Diet Conflicts</th>
+                    </tr>
+                    <tr>
+                      <td>Cardiovascular Disease</td>
+                      <td>Many Options</td>
+                      <td>
+                            <ul>
+                               <li> Be aware of high protein </li>
+                               <li>High Phosphorus: poultry, soy </li>
+                               <li>High Sodium: canned fruit/vegetables, some bread/grain items</li>
+                               <li>High Potassium: some fruits/vegetables</li>
+                            </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>Diabetes</td>
+                        <td>Diabetic dietary needs are more individual, consult your physician for more information</td>
+                        <td>
+                            <ul>
+                            <li>View <a href="https://diabetes.org/sites/default/files/2019-10/ADV_2019_Consumer_Nutrition_One%20Pager.pdf">this link </a> for more information</td></li>
+                            </ul>
+                    </tr>
+                    <tr>
+                        <td>Hyperlipidemia</td>
+                        <td>A low Cholesterol Diet</td>
+                        <td>
+                            <ul>
+                               <li> Be aware of high protein </li>
+                               <li>High Phosphorus:some meat, soy, beans, nuts </li>
+                               <li>High Sodium: full fat dairy, some shellfish, canned fruit/vegetables, some bread/grain items</li>
+                               <li>High Potassium: some fruits and vegetables</li>
+                            </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>Hypertension</td>
+                        <td>DASH Diet</td>
+                        <td>
+                              <ul>
+                                 <li> Be aware of high protein </li>
+                                 <li>High Phosphorus: poultry, soy </li>
+                                 <li>High Sodium: canned fruit/vegetables, some bread/grain items</li>
+                                 <li>High Potassium: some fruits/vegetables</li>
+                              </ul>
+                        </td>
+                    </tr>
+                  </table>
+                  <br>
+                  <p class="post-meta">
+                    Read more about eating with CKD  
+                    <a href="https://www.niddk.nih.gov/health-information/kidney-disease/chronic-kidney-disease-ckd/eating-nutrition">here. </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock%}

@@ -1,0 +1,55 @@
+{% extends 'client_base.html' %}
+{% load static %}
+{% block title%}View Foods{% endblock %}
+{% block content %}
+<!-- This template displays all food used by users into the database -->
+
+<br><br><br>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    #buttonmargin{
+        margin-left:50px;
+    }
+
+    .flex-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+</style>
+
+<a id="buttonmargin" class="btn btn-outline-dark" href="{% url 'clientindex' %}" type="submit"><class="previous">&laquo;Back to Home</a><br><br>
+<a class="btn btn-outline-dark button" id="buttonmargin" href="{%url 'addFoods' %}">Add Food to Database</a>
+
+
+<div class='flex-container'>
+<!--Dynamically display food-->
+{%for viewFood in food%}
+    <div>
+        <br><h3>{{viewFood.food_name| title}}</h3>
+        <table>
+            <tr>
+            <th>Sodium</th>
+            <th>Potassium</th>
+            <th>Protein</th>
+            <th>Water</th>
+            <th>Phosphorus</th>
+            </tr>
+            <tr>
+            <td>{{viewFood.sodium}} {% if viewFood.serving_unit == 'grams' %} g {%else%} {{viewFood.serving_unit}} {%endif%}</td>
+            <td>{{viewFood.potassium}} {% if viewFood.serving_unit == 'grams' %} g {%else%} {{viewFood.serving_unit}} {%endif%}</td>
+            <td>{{viewFood.protein}} {% if viewFood.serving_unit == 'grams' %} g {%else%} {{viewFood.serving_unit}} {%endif%}</td>
+            <td>{{viewFood.water}} {% if viewFood.serving_unit == 'grams' %} g {%else%} {{viewFood.serving_unit}} {%endif%}</td>
+            <td>{{viewFood.phosphorus}} {% if viewFood.serving_unit == 'grams' %} g {%else%} {{viewFood.serving_unit}} {%endif%}</td>
+            </tr>
+        </table>
+    </div>
+{%endfor%}
+    
+</div>
+<br><br><br><br><br><br><br><br>
+{%endblock%}

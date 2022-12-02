@@ -1,0 +1,30 @@
+{%extends 'client_base.html'%}
+{%load static %}
+{% block title%}Edit Journal{% endblock %}
+{% block content %}
+<!-- Template that allows the client to edit journal entries -->
+
+<br><br><br>
+<div class='container'>
+    <div class='text-left'>
+        <h2 class='section_heading text-uppercase'>Journal Entry for: {{record.food_name}}</h2>
+    </div>
+    <br>
+    <form name='form' method='post' action="{% url 'updateEntry' %}">
+        {% csrf_token %}
+        <input type="hidden" id='journal_id' name="journal_id" value="{{ record.journal_entry_id }}">
+        <input type="hidden" id='dd_id' name="dd_id" value="{{ record.dd_id }}">
+
+        <label for="meal_type">Meal Type:</label>
+        <input type="text" name="meal_type" id="meal_type" value="{{record.meal_type}}">
+        <br><br>
+        <label for="consumed_serving_size">Amount of Serving Size Eaten:</label>
+        <input type="text" name="consumed_serving_size" id="consumed_serving_size" value="{{record.consumed_serving_size}}">
+
+        <br><br>
+
+        <button class="btn btn-outline-dark" type='submit'>Update</button> <br><br><br>
+    </form>
+</div>
+
+{%endblock%}

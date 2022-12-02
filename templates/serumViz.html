@@ -1,0 +1,210 @@
+{%extends 'client_base.html'%}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!-- This template displays chart for serum levels, 1/2 dynamic visualizations -->
+
+<head>
+    <!-- CSS property to place div side by side -->
+    <style> 
+        #leftbox {
+            float:left; 
+            width:38%;
+            height:280px;
+            margin-left: 100px
+        }
+        #middlebox{
+            float:left; 
+            background:transparent;
+            width:3%;
+            height:280px;
+        }
+        #rightbox{
+            float:right;
+            width:50%;
+            height:500px;
+            margin-right:auto;
+        }
+        h1{
+            text-align:center;
+        }
+        #buttonmargin{
+            margin-left:50px;
+        }
+    </style> 
+</head>
+<body>
+    <div>
+            <div>
+                <br><br>
+            <h1>&nbsp {{user.username | capfirst}}'s Serum Tracker </h1>
+            <a id="buttonmargin" class="btn btn-outline-dark" href="{% url 'personal' %}" type="submit"><class="previous">&laquo;Back to Summary</a> <br>
+            <div class = "row mt-3 pt-3">
+                <div class = "col-md-4" id="leftbox">
+                    <div class = "border p-3 shadow">
+                        <h4>&nbsp Add Serum Levels</h4>
+                        <hr>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <br>
+                            <input class = "btn btn-outline-dark" type='submit' value = 'Add'>
+                        </form> 
+                    </div> <br><br>
+                </div>
+            
+            <!-- Dynamic Viz for Serum Levels -->
+
+            <div class = "col-md-8" id="rightbox">
+                <canvas id="myChart" width="800" height="800"></canvas>
+                <script>
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [{% for data in data %} '{{data.serum_date}}', {% endfor %}],
+                        datasets: [{
+                            label: 'Potassium (mmol/L)',
+                            data: [{% for data in data %} {{data.serum_potassium}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Phosporus (md/dL)',
+                            data: [{% for data in data %} {{data.serum_phosphorus}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Sodium (mmol/dL)',
+                            data: [{% for data in data %} {{data.serum_sodium}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Creatinine (mg/dL)',
+                            data: [{% for data in data %} {{data.serum_creatinine}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Albumin (g/dL)',
+                            data: [{% for data in data %} {{data.serum_alb}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'A1C (mmol/L)',
+                            data: [{% for data in data %} {{data.serum_blood_sugar}}, {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                    ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+{%endblock%}
